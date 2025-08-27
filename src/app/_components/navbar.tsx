@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import React from "react";
+import { useView } from "./view-context";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = React.useState(false);
+  const { currentView, setCurrentView } = useView();
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -36,12 +38,22 @@ export default function Navbar() {
           >
             Work
           </Link>
-          <Link
-            href="/blog/ai-fiesta"
-            className="text-[11px] text-white/80 transition hover:text-white"
+          <button
+            onClick={() => setCurrentView('blog')}
+            className={`text-[11px] transition hover:text-white ${
+              currentView === 'blog' ? 'text-white' : 'text-white/80'
+            }`}
           >
             Blog
-          </Link>
+          </button>
+          <button
+            onClick={() => setCurrentView('videos')}
+            className={`text-[11px] transition hover:text-white ${
+              currentView === 'videos' ? 'text-white' : 'text-white/80'
+            }`}
+          >
+            Videos
+          </button>
           <Link
             href="#contact"
             className="rounded-full bg-white/85 px-3 py-1 text-[11px] text-gray-900 shadow-sm backdrop-blur transition hover:bg-white"
