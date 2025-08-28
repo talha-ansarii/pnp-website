@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 type PageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 function toTitle(slug: string): string {
@@ -11,8 +11,9 @@ function toTitle(slug: string): string {
     .join(" ");
 }
 
-export default function BlogPostPage({ params }: PageProps) {
-  const title = toTitle(params.slug);
+export default async function BlogPostPage({ params }: PageProps) {
+  const { slug } = await params;
+  const title = toTitle(slug);
   const HERO = "/blog/blog.jpg"; // placeholder hero image
 
   return (
