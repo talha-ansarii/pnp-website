@@ -32,12 +32,6 @@ export default function Navbar() {
           PIXELS AND PROMPTS
         </Link>
         <div className="flex items-center gap-5">
-          <Link
-            href="/#projects"
-            className="text-[11px] text-white/80 transition hover:text-white"
-          >
-            Work
-          </Link>
           <button
             onClick={() => setCurrentView('blog')}
             className={`text-[11px] transition hover:text-white ${
