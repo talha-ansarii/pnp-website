@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <main className="bg-black text-white">
-      {currentView === 'blog' ? (
+      {currentView === 'videos' ? (
         <section className="min-h-screen bg-black px-6 py-10 sm:py-14 lg:py-16">
           <header className="mb-8">
             <h2 className="text-base font-semibold text-white sm:text-lg">Latest Blogs</h2>
