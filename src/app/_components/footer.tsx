@@ -9,7 +9,7 @@ export default function Footer() {
   const { currentView, setCurrentView } = useView();
 
   return (
-    <footer className="border-t border-white/10 bg-black text-white">
+    <footer className="border-t border-white/10 bg-black text-white pb-8 md:pb-0">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div className="text-[10px] tracking-[0.4em] text-white/70 sm:text-xs">

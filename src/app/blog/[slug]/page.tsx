@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <main className="bg-black text-white">
-      <article className="mx-auto max-w-3xl px-6 md:pt-16 pb-24 sm:pt-24 md:max-w-4xl">
+      <article className="mx-auto max-w-3xl pt-8 md:pt-0 px-6 md:pt-16 pb-24 sm:pt-24 md:max-w-4xl">
         <header className="mb-8">
           <div className="mb-2 text-[10px] tracking-[0.4em] text-white/60 sm:text-xs">
             PROMPTS AND PIXELS

@@ -21,7 +21,7 @@ const VideoContainer = () => {
 
 
   return (
-    <aside className="relative h-[60vh] md:h-[70vh] lg:sticky lg:top-0 lg:h-screen">
+    <aside className="relative z-10 h-[60vh] md:h-[70vh] lg:sticky lg:top-0 lg:h-screen">
       <video
         key={videos[currentVideo]}
         autoPlay
@@ -35,7 +35,7 @@ const VideoContainer = () => {
         Your browser does not support the video tag.
       </video>
       <div className="pointer-events-none absolute inset-0 bg-black/30" />
-      <div className="absolute top-1/2 right-0 left-0 z-10 -translate-y-1/2 px-6 text-center">
+      <div className="absolute top-1/2 right-0 left-0 z-20 -translate-y-1/2 px-6 text-center">
         <div className="mb-2 text-[10px] tracking-[0.4em] text-white/60 sm:text-xs">
           PIXELS AND PROMPTS
         </div>

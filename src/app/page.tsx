@@ -1,5 +1,4 @@
 "use client";
-import React from 'react';
 import Image from 'next/image';
 import { useView } from './_components/view-context';
 import VideosSection from './_components/videos-section';
@@ -8,6 +7,8 @@ import { blogs } from '@/data/blog';
 
 const Home = () => {
   const { currentView } = useView();
+ 
+
   
   
   return (
@@ -15,7 +16,7 @@ const Home = () => {
       {currentView === "videos" ? (
         <VideosSection />
       ) : (
-        <section className="min-h-screen max-w-3xl mx-auto bg-black px-6 py-10 sm:py-14 lg:py-16">
+        <section className="min-h-screen rounded-t-[50px] md:rounded-none z-[50] overflow-y-auto max-w-3xl mx-auto bg-transparent  px-6 py-10 sm:py-14 lg:py-16">
           <header className="mb-8">
             <h2 className="text-base font-semibold text-white sm:text-lg">
               Latest Blogs
@@ -29,9 +30,9 @@ const Home = () => {
             {blogs.map((item) => {
               const href = `/blog/${item.slug}`;
               return (
-                <article key={item.title} className="">
-                  <div className="group relative overflow-hidden rounded-md bg-zinc-900">
-                    <div className="relative aspect-[16/9] w-full">
+                <article key={item.title} className="z-50">
+                  <div className="group z-50 relative overflow-hidden rounded-md bg-zinc-900">
+                    <div className="relative z-50 aspect-[16/9] w-full">
                       <Image
                         src={item.src}
                         alt={item.title}

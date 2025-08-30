@@ -34,30 +34,39 @@ export default function RootLayout({
         <TRPCReactProvider>
           <ViewProvider>
             <Navbar />
-            <ResizablePanelGroup
-              direction="horizontal"
-              className="h-[100dvh] w-full"
-            >
-              <ResizablePanel defaultSize={30}>
-                <div className="h-[100dvh]">
-                  <VideoContainer />
-                </div>
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel maxSize={100} minSize={70} defaultSize={70}>
-                <div className="h-[100dvh] overflow-y-auto">
-                  {children}
-                  <Footer />
-                </div>
-              </ResizablePanel>
-            </ResizablePanelGroup>
-            {/* <div className="w-full lg:grid lg:grid-cols-3" id="main-layout">
+
+            {/* Desktop / Large screens: show resizable panels */}
+            <div className="hidden lg:block">
+              <ResizablePanelGroup
+                direction="horizontal"
+                className="h-[100dvh] w-full"
+              >
+                <ResizablePanel defaultSize={30}>
+                  <div className="h-[100dvh]">
+                    <VideoContainer />
+                  </div>
+                </ResizablePanel>
+                <ResizableHandle withHandle />
+                <ResizablePanel maxSize={100} minSize={70} defaultSize={70}>
+                  <div className="h-[100dvh] overflow-y-auto">
+                    {children}
+                    <Footer />
+                  </div>
+                </ResizablePanel>
+              </ResizablePanelGroup>
+            </div>
+
+            {/* Mobile view: show the commented layout */}
+            <div className="block relative w-full lg:hidden" id="main-layout">
+              <div className="sticky z-10 top-0">
               <VideoContainer />
-              <div className="col-span-2 w-full">
+
+              </div>
+              <div className="w-full relative overflow-y-auto -mt-[50px] z-50 rounded-t-[50px]">
                 {children}
                 <Footer />
-              </div>
-            </div> */}
+              </div>  
+            </div>
           </ViewProvider>
         </TRPCReactProvider>
       </body>
