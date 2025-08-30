@@ -33,14 +33,6 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center gap-5">
           <button
-            onClick={() => setCurrentView('blog')}
-            className={`text-[11px] transition hover:text-white ${
-              currentView === 'blog' ? 'text-white' : 'text-white/80'
-            }`}
-          >
-            Blog
-          </button>
-          <button
             onClick={() => setCurrentView('videos')}
             className={`text-[11px] transition hover:text-white ${
               currentView === 'videos' ? 'text-white' : 'text-white/80'
@@ -48,8 +40,17 @@ export default function Navbar() {
           >
             Videos
           </button>
+          <button
+            onClick={() => setCurrentView('blog')}
+            className={`text-[11px] transition hover:text-white ${
+              currentView === 'blog' ? 'text-white' : 'text-white/80'
+            }`}
+          >
+            Blog
+          </button>
           <Link
-            href="#contact"
+            href="https://www.manthanai.com/contact"
+            target="_blank"
             className="rounded-full bg-white/85 px-3 py-1 text-[11px] text-gray-900 shadow-sm backdrop-blur transition hover:bg-white"
           >
             Contact Us

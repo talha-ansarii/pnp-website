@@ -3,24 +3,23 @@ import React from 'react';
 import Image from 'next/image';
 import { useView } from './_components/view-context';
 import VideosSection from './_components/videos-section';
+import { blogs } from '@/data/blog';
 
 
 const Home = () => {
   const { currentView } = useView();
   
-  const blogs = [
-    { title: "Ai Fiesta" },
-    { title: "Distributed Systems" },
-    { title: "Tech Blaze" },
-    { title: "The Art of AI" },
-  ];
-
+  
   return (
     <main className="bg-black text-white">
-      {currentView === 'videos' ? (
+      {currentView === "videos" ? (
+        <VideosSection />
+      ) : (
         <section className="min-h-screen bg-black px-6 py-10 sm:py-14 lg:py-16">
           <header className="mb-8">
-            <h2 className="text-base font-semibold text-white sm:text-lg">Latest Blogs</h2>
+            <h2 className="text-base font-semibold text-white sm:text-lg">
+              Latest Blogs
+            </h2>
             <p className="mt-1 text-[11px] text-white/60 sm:text-xs">
               Curated reads from Pixels and Prompts
             </p>
@@ -28,17 +27,13 @@ const Home = () => {
 
           <div className="space-y-8">
             {blogs.map((item) => {
-              const slug = item.title
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, "-")
-                .replace(/(^-|-$)/g, "");
-              const href = `/blog/${slug}`;
+              const href = `/blog/${item.slug}`;
               return (
                 <article key={item.title} className="">
                   <div className="group relative overflow-hidden rounded-md bg-zinc-900">
                     <div className="relative aspect-[16/9] w-full">
                       <Image
-                        src="/blog/blog.jpg"
+                        src={item.src}
                         alt={item.title}
                         fill
                         unoptimized
@@ -63,8 +58,6 @@ const Home = () => {
             })}
           </div>
         </section>
-      ) : (
-        <VideosSection />
       )}
     </main>
   );

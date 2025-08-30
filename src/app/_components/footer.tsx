@@ -1,6 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { useView } from "./view-context";
+import { useState } from "react";
 
 export default function Footer() {
+
+  const { currentView, setCurrentView } = useView();
+
   return (
     <footer className="border-t border-white/10 bg-black text-white">
       <div className="mx-auto max-w-6xl px-6 py-10">
@@ -9,13 +16,17 @@ export default function Footer() {
             PROMPTS AND PIXELS
           </div>
           <nav className="flex flex-wrap items-center gap-5">
-            <Link href="/#projects" className="text-[11px] text-white/70 transition hover:text-white">
-              Work
+            <Link
+              onClick={() => setCurrentView("videos")}
+             href="/#projects" className="text-[11px] text-white/70 transition hover:text-white">
+              Videos
             </Link>
-            <Link href="/blog/ai-fiesta" className="text-[11px] text-white/70 transition hover:text-white">
+            <Link
+              onClick={() => setCurrentView("blog")}
+              href="/" className="text-[11px] text-white/70 transition hover:text-white">
               Blog
             </Link>
-            <Link href="#contact" className="text-[11px] text-white/70 transition hover:text-white">
+            <Link href="https://www.manthanai.com/contact" target="_blank" className="text-[11px] text-white/70 transition hover:text-white">
               Contact
             </Link>
           </nav>
