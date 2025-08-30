@@ -1,16 +1,16 @@
 export const blogs = [
   {
-    title: 'China\'s Controversial "Pregnancy Robot" Project: Revolutionary Technology or Elaborate Hoax?',
-    slug: 'china-s-controversial-pregnancy-robot-project-revolutionary-technology-or-elaborate-hoax',
-    src : "https://techpression.com/wp-content/uploads/2025/08/artificial-womb-768x570.webp",
-    curtesy : "Techpression",
-    summaryPoints: {
+   title: 'China\'s Controversial "Pregnancy Robot" Project: Revolutionary Technology or Elaborate Hoax?',
+   slug: 'china-s-controversial-pregnancy-robot-project-revolutionary-technology-or-elaborate-hoax',
+   src : "https://techpression.com/wp-content/uploads/2025/08/artificial-womb-768x570.webp",
+   curtesy : "Techpression",
+   summaryPoints: {
       "The Claim": "Chinese company Kaiwa Technology, led by Dr. Zhang Qifeng, announced plans for a humanoid 'pregnancy robot' with an artificial womb",
       "Technology": "The robot would use artificial amniotic fluid and nutrient delivery systems to support fetal development from conception to birth",
       "Timeline & Cost": "A prototype is expected by 2026 with an estimated cost of 100,000 yuan (approximately $14,000)",
       "Controversy": "Multiple fact-checking organizations, including Snopes and Live Science, have determined the specific claims about this robot are not real",
       "Market Need": "The project addresses China's rising infertility rates, which increased from 12% in 2007 to 18% in 2020"
-    },
+   },
     description: {
       "The Revolutionary Concept": "Dr. Zhang Qifeng, founder of Kaiwa Technology, envisions the device not merely as an incubator but as a humanoid that can replicate the entire process from conception to delivery. The ambitious project represents what would be a groundbreaking fusion of robotics and reproductive medicine. The proposed technology goes far beyond current artificial womb research. According to claims, the robot would be capable of carrying a 10-month pregnancy and giving birth to a live baby, like a real person. The system would use synthetic amniotic fluid and be designed to carry out a complete pregnancy from gestation to birth.",
       

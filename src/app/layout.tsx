@@ -8,6 +8,11 @@ import Navbar from "./_components/navbar";
 import Footer from "./_components/footer";
 import VideoContainer from "./_components/video-container";
 import { ViewProvider } from "./_components/view-context";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 export const metadata: Metadata = {
   title: "Prompts and Pixels",
@@ -20,27 +25,39 @@ const geist = Geist({
   variable: "--font-geist-sans",
 });
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-
-
-
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body className="bg-black text-white antialiased">
         <TRPCReactProvider>
           <ViewProvider>
             <Navbar />
-            <div className="w-full lg:grid lg:grid-cols-3">
+            <ResizablePanelGroup
+              direction="horizontal"
+              className="h-[100dvh] w-full"
+            >
+              <ResizablePanel defaultSize={30}>
+                <div className="h-[100dvh]">
+                  <VideoContainer />
+                </div>
+              </ResizablePanel>
+              <ResizableHandle withHandle />
+              <ResizablePanel maxSize={100} minSize={70} defaultSize={70}>
+                <div className="h-[100dvh] overflow-y-auto">
+                  {children}
+                  <Footer />
+                </div>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+            {/* <div className="w-full lg:grid lg:grid-cols-3" id="main-layout">
               <VideoContainer />
-              <div className="w-full col-span-2">
+              <div className="col-span-2 w-full">
                 {children}
                 <Footer />
               </div>
-            </div>
+            </div> */}
           </ViewProvider>
         </TRPCReactProvider>
       </body>

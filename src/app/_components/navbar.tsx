@@ -3,10 +3,12 @@
 import Link from "next/link";
 import React from "react";
 import { useView } from "./view-context";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = React.useState(false);
   const { currentView, setCurrentView } = useView();
+  const router = useRouter();
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -33,16 +35,20 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center gap-5">
           <button
-            onClick={() => setCurrentView('videos')}
-            className={`text-[11px] transition hover:text-white ${
+            onClick={() => {
+              router.push('/');
+              setCurrentView('videos')}}
+            className={`text-[11px] transition hover:text-white cursor-pointer ${
               currentView === 'videos' ? 'text-white' : 'text-white/80'
             }`}
           >
             Videos
           </button>
           <button
-            onClick={() => setCurrentView('blog')}
-            className={`text-[11px] transition hover:text-white ${
+            onClick={() => {
+              router.push('/');
+              setCurrentView('blog')}}
+            className={`text-[11px] transition hover:text-white cursor-pointer ${
               currentView === 'blog' ? 'text-white' : 'text-white/80'
             }`}
           >

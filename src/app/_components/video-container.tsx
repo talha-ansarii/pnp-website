@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
+
 const videos = [
   "/hero/1.mp4",
   "/hero/2.mp4",
@@ -10,12 +11,15 @@ const videos = [
   "/hero/7.mp4",
 ];
 
+
 const VideoContainer = () => {
     const [currentVideo, setCurrentVideo] = useState(0);
 
-    useEffect(() => {
-      setCurrentVideo(Math.floor(Math.random() * videos.length));
+  useEffect(() => {
+      setCurrentVideo(Math.floor(Math.random() * Object.keys(videos).length));
     }, []);
+
+
   return (
     <aside className="relative h-[60vh] md:h-[70vh] lg:sticky lg:top-0 lg:h-screen">
       <video
