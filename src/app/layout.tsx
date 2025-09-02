@@ -13,6 +13,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Prompts and Pixels",
@@ -57,16 +58,16 @@ export default function RootLayout({
             </div>
 
             {/* Mobile view: show the commented layout */}
-            <div className="block relative w-full lg:hidden" id="main-layout">
-              <div className="sticky z-10 top-0">
-              <VideoContainer />
-
+            <div className="relative block w-full lg:hidden" id="main-layout">
+              <div className="sticky top-0 z-10">
+                <VideoContainer />
               </div>
-              <div className="w-full relative overflow-y-auto -mt-[50px] z-50 rounded-t-[50px]">
+              <div className="relative z-50 -mt-[50px] w-full overflow-y-auto rounded-t-[50px]">
                 {children}
                 <Footer />
-              </div>  
+              </div>
             </div>
+            <Toaster />
           </ViewProvider>
         </TRPCReactProvider>
       </body>

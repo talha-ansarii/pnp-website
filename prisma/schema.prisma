@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
+    provider = "mongodb"
     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -14,21 +14,11 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-}
 
 // Necessary for Next auth
 model Account {
-    id                       String  @id @default(cuid())
+    id                      String  @id @default(auto()) @map("_id") @db.ObjectId
     userId                   String
     type                     String
     provider                 String
@@ -47,7 +37,7 @@ model Account {
 }
 
 model Session {
-    id           String   @id @default(cuid())
+    id           String   @id @default(auto()) @map("_id") @db.ObjectId
     sessionToken String   @unique
     userId       String
     expires      DateTime
@@ -55,20 +45,46 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String    @id @default(auto()) @map("_id") @db.ObjectId
     name          String?
     email         String?   @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
 }
 
 model VerificationToken {
-    identifier String
+    identifier String @id @default(auto()) @map("_id") @db.ObjectId
     token      String   @unique
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+
+
+model Blog {
+    id        String      @id @default(auto()) @map("_id") @db.ObjectId
+    title     String
+    slug      String   @unique
+    src       String
+    curtesy   String
+    summaryPoints Json // schema : { key: string, value: string }
+    description Json // schema : { key: string, value: string }
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+
+
+model Video {
+    id        String      @id @default(auto()) @map("_id") @db.ObjectId
+    src       String
+    link      String
+    title     String
+    timeUploaded String
+    description String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

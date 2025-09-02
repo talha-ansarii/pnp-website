@@ -13,6 +13,7 @@ import { ZodError } from "zod";
 
 import { auth } from "@/server/auth";
 import { db } from "@/server/db";
+import { env } from "@/env";
 
 /**
  * 1. CONTEXT
@@ -130,4 +131,34 @@ export const protectedProcedure = t.procedure
         session: { ...ctx.session, user: ctx.session.user },
       },
     });
+  });
+
+/**
+ * Admin-only procedure secured by server secret. Valid if either:
+ * - Header `x-admin-secret` matches ADMIN_SECRET
+ * - Cookie `admin_token` matches ADMIN_SECRET
+ */
+export const adminProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(({ ctx, next }) => {
+    const headerSecret = ctx.headers.get("x-admin-secret") ?? "";
+    const cookieHeader = ctx.headers.get("cookie") ?? "";
+
+    // minimal cookie parser
+    const cookieMap = new Map<string, string>();
+    for (const part of cookieHeader.split(";")) {
+      const eq = part.indexOf("=");
+      if (eq > -1) {
+        const k = part.slice(0, eq).trim();
+        const v = part.slice(eq + 1).trim();
+        if (k) cookieMap.set(k, decodeURIComponent(v));
+      }
+    }
+    const cookieSecret = cookieMap.get("admin_token") ?? "";
+
+    const provided = headerSecret || cookieSecret;
+    if (!provided || provided !== env.ADMIN_SECRET) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+    return next();
   });

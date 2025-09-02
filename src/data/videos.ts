@@ -5,7 +5,6 @@ export const videos = [
     title: "Hero Video 1",
     timeUploaded: "2h",
     description: "Hero Video 1 Description"
-
   },
   {
     src: "/hero/2.mp4",

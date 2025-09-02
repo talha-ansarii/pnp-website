@@ -2,13 +2,14 @@
 import Image from 'next/image';
 import { useView } from './_components/view-context';
 import VideosSection from './_components/videos-section';
-import { blogs } from '@/data/blog';
+import { api } from '@/trpc/react';
 
 
 const Home = () => {
   const { currentView } = useView();
  
 
+  const { data: blogs } = api.blog.getBlogs.useQuery();
   
   
   return (
@@ -27,7 +28,7 @@ const Home = () => {
           </header>
 
           <div className="space-y-8">
-            {blogs.map((item) => {
+            {blogs?.map((item) => {
               const href = `/blog/${item.slug}`;
               return (
                 <article key={item.title} className="z-50">
