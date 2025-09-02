@@ -27,6 +27,32 @@ export const videoRouter = createTRPCRouter({
     const videos = await ctx.db.video.findMany({ orderBy: { createdAt: "desc" } });
     return videos;
   }),
+
+  update: adminProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+        data: z.object({
+          src: z.string().min(1).optional(),
+          link: z.string().min(1).optional(),
+          title: z.string().min(1).optional(),
+          timeUploaded: z.string().min(1).optional(),
+          description: z.string().min(1).optional(),
+        }),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id, data } = input;
+      const updated = await ctx.db.video.update({ where: { id }, data });
+      return updated;
+    }),
+
+  delete: adminProcedure
+    .input(z.object({ id: z.string().min(1) }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.video.delete({ where: { id: input.id } });
+      return { success: true };
+    }),
 });
 
 

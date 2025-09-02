@@ -41,7 +41,44 @@ export const blogRouter = createTRPCRouter({
     }),
 
   getBlogs: publicProcedure.query(async ({ ctx }) => {
-    const blogs = await ctx.db.blog.findMany();
+    const blogs = await ctx.db.blog.findMany({ orderBy: { createdAt: "desc" } });
     return blogs;
   }),
+
+  update: adminProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+        data: z.object({
+          title: z.string().min(1).optional(),
+          src: z.string().min(1).optional(),
+          curtesy: z.string().min(1).optional(),
+          summaryPoints: z.record(z.string()).optional(),
+          description: z.record(z.string()).optional(),
+        }),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id, data } = input;
+      const updateData: Record<string, unknown> = { ...data };
+      if (data.title) {
+        updateData.slug = data.title
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9\s-]/g, "")
+          .replace(/\s+/g, "-");
+      }
+      const updated = await ctx.db.blog.update({
+        where: { id },
+        data: updateData,
+      });
+      return updated;
+    }),
+
+  delete: adminProcedure
+    .input(z.object({ id: z.string().min(1) }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.blog.delete({ where: { id: input.id } });
+      return { success: true };
+    }),
 });

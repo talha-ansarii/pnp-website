@@ -1,5 +1,6 @@
+import { api } from "@/trpc/server";
 import Image from "next/image";
-import { blogs } from "@/data/blog";
+
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -30,16 +31,12 @@ function calculateReadTime(blog: Blog): number {
 
 
 
-function toTitle(slug: string): string {
-  return slug
-    .split("-")
-    .map((s) => (s ? s[0]!.toUpperCase() + s.slice(1) : s))
-    .join(" ");
-}
+// removed unused toTitle
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
-  const blog = blogs.find((blog) => blog.slug === slug);
+  const blogs = await api.blog.getBlogs(); 
+  const blog = blogs?.find((blog) => blog.slug === slug);
   const readTime = calculateReadTime(blog as unknown as Blog);
 
   if (!blog) {
@@ -54,7 +51,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <main className="bg-black text-white">
-      <article className="mx-auto max-w-3xl pt-8 md:pt-0 px-6 md:pt-16 pb-24 sm:pt-24 md:max-w-4xl">
+      <article className="mx-auto max-w-3xl px-6 pt-8 sm:pt-24 md:pt-16 pb-24 md:max-w-4xl">
         <header className="mb-8">
           <div className="mb-2 text-[10px] tracking-[0.4em] text-white/60 sm:text-xs">
             PROMPTS AND PIXELS
@@ -86,7 +83,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <section className="mb-10 rounded-lg border border-white/10 bg-white/5 p-6">
           <h2 className="mb-4 text-lg font-semibold text-white">Key Points</h2>
           <div className="space-y-3">
-            {Object.entries(blog.summaryPoints).map(([key, value]) => (
+            {Object.entries(blog.summaryPoints as Record<string, string>).map(([key, value]) => (
               <div key={key} className="border-l-2 border-white/20 pl-4">
                 <h3 className="mb-1 text-sm font-medium text-white/90">
                   {key}
@@ -99,17 +96,15 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         {/* Main Content */}
         <section className="space-y-8 text-sm leading-7 text-white/70 sm:text-base">
-          {Object.entries(blog.description).map(([sectionTitle, content]) => (
+          {Object.entries(blog.description as Record<string, string>  ).map(([sectionTitle, content]) => (
             <div key={sectionTitle} className="space-y-4">
               <h2 className="text-lg font-semibold text-white sm:text-xl">
                 {sectionTitle}
               </h2>
               <div className="space-y-4">
-                {(content as string).split(". ").map((sentence: string, index: number, array: string[]) => {
+                {(content).split(". ").map((sentence: string, index: number, array: string[]) => {
                   // Group sentences into paragraphs (roughly 3-4 sentences each)
                   const isStartOfParagraph = index % 4 === 0;
-                  const isEndOfParagraph =
-                    index % 4 === 3 || index === array.length - 1;
 
                   if (isStartOfParagraph) {
                     const paragraphSentences = array.slice(

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import type { KeyboardEventHandler } from "react";
 import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<"blog" | "video">("blog");
@@ -78,9 +80,27 @@ export default function AdminPage() {
     }
   };
 
+  const router = useRouter();
+
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-semibold mb-4">Admin</h1>
+      <header className="flex gap-3 mb-4 mt-10">
+        <h1 className="text-2xl font-semibold mb-4">Admin</h1>
+        <Button
+          type="button"
+          onClick={() => router.replace("/admin/blog")}
+            className={` rounded border border-neutral-700 cursor-pointer`}
+        >
+          View Blogs
+        </Button>
+        <Button
+          type="button"
+          onClick={() => router.replace("/admin/video")}
+          className={`rounded border border-neutral-700 cursor-pointer`}
+        >
+          View Videos
+        </Button>
+      </header>
 
       <div className="mb-6 flex gap-2">
         <button
@@ -88,14 +108,14 @@ export default function AdminPage() {
           onClick={() => setActiveTab("blog")}
           className={`px-4 py-2 rounded border ${activeTab === "blog" ? "bg-white text-black" : "border-neutral-700"}`}
         >
-          Blog
+          Add Blog
         </button>
         <button
           type="button"
           onClick={() => setActiveTab("video")}
           className={`px-4 py-2 rounded border ${activeTab === "video" ? "bg-white text-black" : "border-neutral-700"}`}
         >
-          Video
+          Add Video
         </button>
       </div>
 
